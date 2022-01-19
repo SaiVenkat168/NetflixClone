@@ -29,8 +29,8 @@
 
                 <ImageView
                     android:id="@+id/netflixlogo"
-                    android:layout_width="52dp"
-                    android:layout_height="51dp"
+                    android:layout_width="40dp"
+                    android:layout_height="43dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:layout_marginStart="0dp"
@@ -78,31 +78,52 @@
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@id/btngetstarted"
+    app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpagerswipescreen"
-            android:layout_width="match_parent"
-            android:layout_height="586dp"
-            android:layout_marginBottom="63dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="55dp">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpagerswipescreen"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginBottom="63dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="55dp">
 
-            <!---->
+        <!---->
 
-        </androidx.viewpager.widget.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
-        <LinearLayout
-            android:id="@+id/sliderdots"
+    <LinearLayout
+        android:id="@+id/sliderdots"
+        android:layout_width="339dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/viewpagerswipescreen"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="30dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</RelativeLayout>
+        <TextView
+            android:id="@+id/btngetstarted"
             android:layout_width="340dp"
-            android:layout_height="20dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="650dp"
-            tools:ignore="MissingConstraints">
-
-        </LinearLayout>
+            android:layout_height="62dp"
+            android:layout_marginBottom="30dp"
+            android:text="Get Started"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/activedot"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

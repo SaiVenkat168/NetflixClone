@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NetflixProject">
         <activity
+            android:name=".activities.ChooseYourPlan"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StepOne"
+            android:exported="false" />
+        <activity
             android:name=".mainscreens.MainScreen"
             android:exported="false" />
         <activity
@@ -29,9 +35,7 @@
         </activity>
         <activity
             android:name=".mainscreens.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".activities.StepOne">
+    <include
+        layout="@layout/toolbarstepone"/>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/lockiconimg"
+        layout="@layout/lockicon"
+        android:layout_width="125dp"
+        android:layout_height="115dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp">
+
+    </include>
+
+    <TextView
+        android:id="@+id/one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lockiconimg"
+        android:gravity="center"
+        android:text="STEP 1 OF 3"
+        android:textColor="@color/black"
+        android:textSize="25dp" />
+    <TextView
+        android:id="@+id/pl"
+        android:layout_below="@id/one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Choose your plan"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pl"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_baseline_check_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:text="No Commitments, cancel at any time."
+            android:textColor="#494242"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layouttwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutone"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_baseline_check_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:text="Everything on Netflix for low price."
+            android:textColor="#494242"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutthree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layouttwo"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_baseline_check_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:text="No ads and no extra fees."
+            android:textColor="#494242"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/plans"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="68dp"
+        android:background="@color/activedot"
+        android:gravity="center"
+        android:text="SEE YOUR PLANS"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
