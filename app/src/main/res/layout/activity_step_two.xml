@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.StepTwo">
+    <include
+        android:id="@+id/t"
+        layout="@layout/toolbarstepone"/>
+
+
+
+        <TextView
+            android:id="@+id/steptwoofthree"
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/t"
+            android:text="STEP 2 OF 3"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/steptwoofthree"
+            android:text="Create Password to start."
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/b"
+            android:layout_below="@id/a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Just a few steps and you are done!.\nWe hate paper work too"
+            android:textColor="#000"
+            android:textSize="22dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_below="@id/b">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emaillayoutsteptwo"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="#2B2B2B"
+            android:gravity="center"
+            android:padding="1dp"
+            android:textColorHint="#888686"
+            app:boxBackgroundMode="filled"
+            app:hintTextColor="#000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.181">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailedittextsteptwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_stroke"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="20dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Passswordtextlayoutsteptwo"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="32dp"
+            android:background="#2B2B2B"
+            android:padding="1dp"
+            android:textColorHint="#716E6E"
+            app:boxBackgroundMode="filled"
+            app:hintTextColor="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emaillayoutsteptwo"
+            app:passwordToggleEnabled="true">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordedittextsteptwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_stroke"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingTop="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/emaillayoutsteptwo"
+                tools:layout_editor_absoluteX="16dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/siginbtnsteptwo"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/teal_200"
+            android:gravity="center"
+            android:text="CONTINUE"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Passswordtextlayoutsteptwo"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/Passswordtextlayoutsteptwo"
+            app:layout_constraintTop_toBottomOf="@+id/Passswordtextlayoutsteptwo"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ProgressBar
+            android:id="@+id/pbsteptwo"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:theme="@style/AppTheme.Custom"
+            app:layout_constraintBottom_toBottomOf="@+id/siginbtnsteptwo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

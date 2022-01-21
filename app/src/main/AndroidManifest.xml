@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NetflixProject">
         <activity
+            android:name=".activities.Payment"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PaymentGateway"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StepThree"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StepTwo"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FinishUpAccount"
+            android:exported="false" />
+        <activity
             android:name=".activities.ChooseYourPlan"
             android:exported="false" />
         <activity
