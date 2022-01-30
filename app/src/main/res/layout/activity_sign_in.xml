@@ -47,8 +47,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailedittext"
                 android:layout_width="match_parent"
+                android:imeOptions="actionNext"
                 android:layout_height="match_parent"
                 android:hint="Email"
+                android:singleLine="true"
                 android:background="#373535"
                 android:inputType="textEmailAddress"
                 android:textColor="#fff"

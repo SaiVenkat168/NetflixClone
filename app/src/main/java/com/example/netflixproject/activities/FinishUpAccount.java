@@ -27,7 +27,7 @@ public class FinishUpAccount extends AppCompatActivity {
         PlanName=i.getStringExtra("PlanName");
         PlanCost=i.getStringExtra("PlanCost");
         PlanCostFormat=i.getStringExtra("PlanCostFormat");
-        Toast.makeText(FinishUpAccount.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(FinishUpAccount.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
 
         signin=findViewById(R.id.signintextviewstepone);
         one=findViewById(R.id.steponeofthreefinish);

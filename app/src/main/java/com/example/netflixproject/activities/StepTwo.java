@@ -1,5 +1,6 @@
 package com.example.netflixproject.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.netflixproject.R;
+import com.example.netflixproject.mainscreens.MainScreen;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,17 +31,21 @@ public class StepTwo extends AppCompatActivity {
     ProgressBar progressbar;
     TextView useremail,userpassword;
     String PlanName,PlanCost,PlanCostFormat,email,password;
+    FirebaseAuth auth;
+    Boolean x;
+
     static int time=1500,c=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_two);
         getSupportActionBar().hide();
+        auth=FirebaseAuth.getInstance();
         Intent i=getIntent();
         PlanName=i.getStringExtra("PlanName");
         PlanCost=i.getStringExtra("PlanCost");
         PlanCostFormat=i.getStringExtra("PlanCostFormat");
-        Toast.makeText(StepTwo.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(StepTwo.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
         signinbtn=findViewById(R.id.siginbtnsteptwo);
         useremail=findViewById(R.id.emailedittextsteptwo);
         userpassword=findViewById(R.id.passwordedittextsteptwo);
@@ -58,13 +69,59 @@ public class StepTwo extends AppCompatActivity {
                 email=useremail.getText().toString();
                 password=userpassword.getText().toString();
                 progressbar.setVisibility(View.VISIBLE);
-              Intent  i = new Intent(StepTwo.this, StepThree.class);
-                i.putExtra("PlanName",PlanName);
-                i.putExtra("PlanCost",PlanCost);
-                i.putExtra("PlanCostFormat",PlanCostFormat);
-                i.putExtra("EmailId",email);
-                i.putExtra("Password",password);
-                startActivity(i);
+
+                x=true;
+                if(email.length()<10 || !email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
+                {
+                    useremail.setError("Enter a Valid Email");
+                    x=false;
+                    progressbar.setVisibility(View.GONE);
+                }
+
+                if(password.length()<8) {
+                    userpassword.setError("Password too short");
+                    x=false;
+                    progressbar.setVisibility(View.GONE);
+
+                }
+
+                if(x)
+                {
+                    auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if(task.isSuccessful()) {
+                                x=false;
+                                Toast.makeText(getApplicationContext(), "Enter via sign in", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(StepTwo.this, SignInActivity.class));
+                            }
+                            else {
+                                if(task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                                {
+                                    useremail.setError("Email already exists");
+                                    x=false;
+                                    progressbar.setVisibility(View.GONE);
+                                }
+                            }
+
+                            if(email.length()>9 && password.length()>7 && email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$") && x)
+                            {
+                                Intent  i = new Intent(StepTwo.this, StepThree.class);
+                                i.putExtra("PlanName",PlanName);
+                                i.putExtra("PlanCost",PlanCost);
+                                i.putExtra("PlanCostFormat",PlanCostFormat);
+                                i.putExtra("EmailId",email);
+                                i.putExtra("Password",password);
+                                startActivity(i);
+
+                            }
+
+                        }
+                    });
+                }
+
+
             }
         });
 

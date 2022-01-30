@@ -30,7 +30,7 @@ public class StepThree extends AppCompatActivity {
         email=i.getStringExtra("EmailId");
         password=i.getStringExtra("Password");
         PlanCostFormat=i.getStringExtra("PlanCostFormat");
-        Toast.makeText(StepThree.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(StepThree.this, PlanName +" "+PlanCost+" "+PlanCostFormat, Toast.LENGTH_SHORT).show();
 
         TextView one=findViewById(R.id.step3of3);
         paymentlinearlayout=findViewById(R.id.paymentlinearlayout);
