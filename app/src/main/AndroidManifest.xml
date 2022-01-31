@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.netflixproject">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.NetflixProject">
+        <activity
+            android:name=".activities.PaymentOverdue"
+            android:exported="false" />
         <activity
             android:name=".activities.Payment"
             android:exported="false" />
@@ -52,18 +56,17 @@
         </activity>
         <activity
             android:name=".mainscreens.MainActivity"
-            android:exported="true" />
-<!--        <receiver-->
-<!--            android:name="com.razorpay.RzpTokenReceiver"-->
-<!--            android:exported="false">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="rzp.device_token.share" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
+            android:exported="true" /> <!-- <receiver -->
+        <!-- android:name="com.razorpay.RzpTokenReceiver" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="rzp.device_token.share" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <meta-data
             android:name="com.razorpay.Apikey"
-            android:value="rzp_test_Bs3qw5iSflSOu2"/>
+            android:value="rzp_test_Bs3qw5iSflSOu2" />
+
         <receiver
             android:name="com.razorpay.RzpTokenReceiver"
             android:exported="false">
@@ -79,13 +82,12 @@
             android:theme="@style/CheckoutTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <data
                     android:host="rzp.io"
                     android:scheme="io.rzp" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

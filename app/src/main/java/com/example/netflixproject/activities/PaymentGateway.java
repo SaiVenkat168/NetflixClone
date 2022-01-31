@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -30,28 +31,35 @@ import android.widget.Toast;
 import com.example.netflixproject.R;
 import com.example.netflixproject.mainscreens.MainScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentGateway extends AppCompatActivity implements PaymentResultListener
 {
 
-    String PlanName,PlanCost,PlanCostFormat,email,password,fname,lname,cnumber;
+    String PlanName,PlanCost,PlanCostFormat,email,password,fname,lname,cnumber,userId;
     int color = Color.parseColor("#0B81DF");
     FirebaseAuth auth;
    // FirebaseDatabase database;
     FirebaseFirestore firebaseFirestore;
-    Date vdate,date;
+    Date validdate,date;
+    ProgressDialog progressDialog;
     FirebaseDatabase database;
     TextView one,firstname,lastname,number,continuemembership,costpayment,planpayment,changepayent;
     CheckBox checkbox;
@@ -65,8 +73,13 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
 
 
         auth=FirebaseAuth.getInstance();
-       database=FirebaseDatabase.getInstance();
+        progressDialog=new ProgressDialog(PaymentGateway.this);
+        database=FirebaseDatabase.getInstance();
        firebaseFirestore=FirebaseFirestore.getInstance();
+        Calendar c=Calendar.getInstance();
+        date=c.getTime();
+        c.add(Calendar.MONTH,1);
+        validdate=c.getTime();
 
         getSupportActionBar().hide();
         Intent i=getIntent();
@@ -136,8 +149,13 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
             public void onClick(View v) {
                 if(checkbox.isChecked())
                 {
-                    if(firstname.getText().toString().length()>3 && lastname.getText().toString().length()>3 && (firstname.getText().toString().matches("[a-z A-Z]+")) && (lastname.getText().toString().matches("[a-z A-Z]+")) && number.getText().toString().length()==10)
+                    if(firstname.getText().toString().length()>=3 && lastname.getText().toString().length()>=3 && (firstname.getText().toString().matches("[a-z A-Z]+")) && (lastname.getText().toString().matches("[a-z A-Z]+")) && number.getText().toString().length()==10)
+                    {
+                        //progressDialog.setTitle("Payment" );
+                        progressDialog.setMessage("Loading");
+                        progressDialog.show();
                         startPayment();
+                    }
                     else
                     {
                         if(firstname.getText().toString().length()<3 ||!(firstname.getText().toString().matches("[a-z A-Z]+")))
@@ -189,6 +207,7 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
             options.put("amount",d);
             options.put("prefill.email",email);
             options.put("prefill.contact",cnumber);
+            progressDialog.dismiss();
             checkout.open(activity,options);
 
         } catch (Exception e) {
@@ -207,10 +226,40 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                if(task.isSuccessful())
+                {
+                    //progressDialog.setTitle("Loading" );
+                    progressDialog.setMessage("Taking you to mainscreen...!");
+                    progressDialog.show();
+                    userId=auth.getCurrentUser().getUid();
+                    DocumentReference documentReference=firebaseFirestore.collection("Users").document(userId);
+                    Map<String,Object> user=new HashMap<>();
+                    user.put("Email",email);
+                    user.put("Firts_name",firstname.getText().toString());
+                    user.put("Last_name",lastname.getText().toString());
+                    user.put("Plan_cost",PlanCost);
+                    user.put("Contact_number",number.getText().toString());
+                    //user.put("Register_date",date.toString());
+                    user.put("Valid_date",validdate);
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(@NonNull Void unused) {
+                            progressDialog.dismiss();
+                            startActivity(new Intent(PaymentGateway.this,MainScreen.class));
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error in storing values", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+
+                //startActivity(new Intent(PaymentGateway.this,MainScreen.class));
 
 
-
-                startActivity(new Intent(PaymentGateway.this,MainScreen.class));
             }
         });
 
