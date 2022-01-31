@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_marginTop="68dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/basicplanimage"
                     android:id="@+id/basicplanimg"/>
 
             </androidx.cardview.widget.CardView>
@@ -141,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_marginTop="68dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/standardplanimage"
                     android:id="@+id/standardplanimg"/>
 
             </androidx.cardview.widget.CardView>
@@ -191,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_marginTop="68dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/premiumplanimage"
                     android:id="@+id/premiumplanimg"/>
 
             </androidx.cardview.widget.CardView>

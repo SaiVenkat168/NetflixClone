@@ -10,8 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.netflixproject.R;
 import com.example.netflixproject.adaptar.MainRecyclerAdapter;
@@ -27,38 +26,28 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainScreen extends AppCompatActivity {
-
+public class Movies extends AppCompatActivity {
+    ImageView logo;
+    BottomNavigationView bottomNavigationView;
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainrecycler;
     List<AllCategory> allCategoryList;
 
-    TextView movies,tvseries;
-    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.activity_movies);
         getSupportActionBar().hide();
-        movies=findViewById(R.id.moviesseriestooltext);
-        tvseries=findViewById(R.id.tvseriestooltext);
-
-        //mainrecycler=findViewById(R.id.MainRecyclerView);
-
-        movies.setOnClickListener(new View.OnClickListener() {
+        logo=findViewById(R.id.movnetflixlogo);
+        logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainScreen.this,Movies.class));
-            }
-        });
-        tvseries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainScreen.this,TvSeries.class));
+                startActivity(new Intent(Movies.this,MainScreen.class));
             }
         });
 
-        bottomNavigationView=findViewById(R.id.navmain);
+        bottomNavigationView=findViewById(R.id.navmovie);
         Menu menu=bottomNavigationView.getMenu();
         MenuItem menuItem=menu.getItem(0);
         menuItem.setChecked(true);
@@ -68,12 +57,13 @@ public class MainScreen extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.homeicon:
+                        startActivity(new Intent(Movies.this,MainScreen.class));
                         break;
                     case R.id.searchicon:
-                        startActivity(new Intent(MainScreen.this,Search.class));
+                        startActivity(new Intent(Movies.this,Search.class));
                         break;
                     case R.id.settingsicon:
-                        startActivity(new Intent(MainScreen.this,Settings.class));
+                        startActivity(new Intent(Movies.this,Settings.class));
                         break;
                 }
                 return false;
@@ -83,10 +73,13 @@ public class MainScreen extends AppCompatActivity {
         allCategoryList=new ArrayList<>();
         getAllMovieData();
 
+
     }
+
+
     public  void setMainrecycler(List<AllCategory> allCategoryList)
     {
-        mainrecycler=findViewById(R.id.MainRecyclerView);
+        mainrecycler=findViewById(R.id.MoviesRecyclerView);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         mainrecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter= new MainRecyclerAdapter(this,allCategoryList);
@@ -117,5 +110,6 @@ public class MainScreen extends AppCompatActivity {
                 })
         );
     }
+
 
 }

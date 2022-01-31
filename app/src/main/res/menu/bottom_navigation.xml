@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeicon"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/item_unselected"
+        android:enabled="true"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/searchicon"
+        android:icon="@drawable/ic_search"
+        android:enabled="true"
+        android:iconTint="@color/item_unselected"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/settingsicon"
+        android:icon="@drawable/ic_more"
+        android:iconTint="@color/item_unselected"
+        android:enabled="true"
+        android:title="Settings"/>
+
+
+</menu>

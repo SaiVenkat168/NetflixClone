@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/black"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/tvtoolbar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/white"
+        android:background="@color/black"
         android:theme="@style/Theme.AppCompat.Dialog"
         tools:ignore="MissingConstraints">
 
@@ -16,32 +17,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="0dp"
-            android:background="@color/white">
+            android:background="@color/black">
 
             <ImageView
-                android:id="@+id/netflixlogo"
-                android:layout_width="125dp"
-                android:layout_height="43dp"
+                android:id="@+id/movnetflixlogo"
+                android:layout_width="131dp"
+                android:layout_height="49dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="1dp"
-                android:scaleType="centerCrop"
                 android:layout_marginBottom="3dp"
                 android:foregroundGravity="center"
-                android:src="@drawable/fix" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/netflixxx" />
 
             <TextView
-                android:id="@+id/signoutstepthree"
+                android:id="@+id/movtooltext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:layout_marginEnd="28dp"
-                android:text="SIGN OUT"
-                android:textColor="#000"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="48dp"
+                android:text="Movies"
+                android:textColor="#fff"
+                android:textSize="20dp" />
 
 
         </RelativeLayout>

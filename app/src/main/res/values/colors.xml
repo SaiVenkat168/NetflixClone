@@ -9,4 +9,9 @@
     <color name="activedot">#E50914</color>
     <color name="inactivedot">#8F8E8E</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="item_selected">#fff</color>
+    <color name="item_unselected">#8F8E8E</color>
+    <color name="bottom_navigation">#171717</color>
 </resources>
