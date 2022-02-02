@@ -19,7 +19,7 @@ import com.example.netflixproject.R;
 public class MovieDetails extends AppCompatActivity {
     ImageView movieimage;
     TextView moviename;
-    Button Play;
+    TextView Play;
     String name,image,fileurl,moviesid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

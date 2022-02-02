@@ -6,19 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".mainscreens.Search">
-    <include
-        layout="@layout/settingstoolbar"/>
+<!--    <include-->
+<!--        android:id="@+id/searchto"-->
+<!--        layout="@layout/settingstoolbar"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular Searches"
+            android:layout_marginStart="15dp"
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="618dp"
+            android:layout_height="match_parent"
             android:layout_above="@id/navsearch"
-            android:layout_marginTop="53dp"
-            android:id="@+id/searchRecyclerView"/>
+            android:layout_below="@id/a" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navsearch"
