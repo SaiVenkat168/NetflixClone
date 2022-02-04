@@ -80,9 +80,6 @@ public class PaymentOverdue extends AppCompatActivity implements PaymentResultLi
         setContentView(R.layout.activity_payment_overdue);
         getSupportActionBar().hide();
         sigin=findViewById(R.id.signintextviewstepone);
-//        ba=findViewById(R.id.bas);
-//        sta=findViewById(R.id.sta);
-//        pre=findViewById(R.id.pre);
         Checkout.preload(getApplicationContext());
 
         Calendar c=Calendar.getInstance();
@@ -192,46 +189,18 @@ public class PaymentOverdue extends AppCompatActivity implements PaymentResultLi
 
             }
         });
-
-//        database.getReference().child("Users").child(Userid).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot)
-//            {
-//                namef=snapshot.getValue(Users.class).getFirstname().toString();
-//                namel=snapshot.getValue(Users.class).getLastname().toString();
-//                numb=snapshot.getValue(Users.class).getMobilenumber().toString();
-//                mai=snapshot.getValue(Users.class).getEmail().toString();
-//                name=namef+namel;
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                Toast.makeText(getApplicationContext(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-
-
-
-
-
-
     }
 
     @Override
     public void onPaymentSuccess(String s) {
         Toast.makeText(this, "Payment Successfull", Toast.LENGTH_SHORT).show();
-
-
-
         DocumentReference documentReference=firebaseFirestore.collection("Users").document(Userid);
         Map<String,Object> user=new HashMap<>();
-        user.put("Email",mail);
-        user.put("Firts_name",fname);
-        user.put("Last_name",lname);
+//        user.put("Email",mail);
+//        user.put("Firts_name",fname);
+//        user.put("Last_name",lname);
         user.put("Plan_cost",getPay());
-        user.put("Contact_number",number);
+//        user.put("Contact_number",number);
         //user.put("Register_date",date.toString());
         user.put("Valid_date",validdate);
         documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {

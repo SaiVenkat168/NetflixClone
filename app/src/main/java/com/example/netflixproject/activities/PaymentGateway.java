@@ -235,9 +235,9 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
                     progressDialog.show();
                     userId=auth.getCurrentUser().getUid();
 
-                    Users users=new Users(firstname.getText().toString(),lastname.getText().toString(),email,number.getText().toString(),PlanCost,validdate);
-                    String id=task.getResult().getUser().getUid();
-                    database.getReference().child("Users").child(id).setValue(users);
+//                    Users users=new Users(firstname.getText().toString(),lastname.getText().toString(),email,number.getText().toString(),PlanCost,validdate);
+//                    String id=task.getResult().getUser().getUid();
+//                    database.getReference().child("Users").child(id).setValue(users);
 
                     DocumentReference documentReference=firebaseFirestore.collection("Users").document(userId);
                     Map<String,Object> user=new HashMap<>();

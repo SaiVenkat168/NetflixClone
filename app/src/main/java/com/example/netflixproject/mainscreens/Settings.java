@@ -7,11 +7,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -140,9 +142,34 @@ public class Settings extends AppCompatActivity {
 
         signoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                auth.signOut();
-                startActivity(new Intent(Settings.this, SignInActivity.class));
+            public void onClick(View view) {
+                AlertDialog.Builder signout= new AlertDialog.Builder(view.getContext());
+                signout.setTitle("Do you really want to signout ?");
+                signout.setMessage("Press YES to signout");
+                signout.setCancelable(false);
+                signout.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent x=new Intent(Settings.this,SignInActivity.class);
+                        startActivity(x);
+                        finish();
+                    }
+                }).create();
+                signout.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                    }
+                }).create();
+                signout.show();
+
+//
+//                signout.(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
+//                signout.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.black));
+//
+
+
             }
         });
 

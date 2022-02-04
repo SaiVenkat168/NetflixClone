@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,8 +75,33 @@ public class TvSeries extends AppCompatActivity {
             }
         });
 
-        allCategoryList=new ArrayList<>();
-        getAllMovieData();
+
+
+
+        ConnectivityManager connectivityManager=(ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+        if(networkInfo==null||!networkInfo.isConnected()||!networkInfo.isAvailable()){
+            AlertDialog.Builder builder= new AlertDialog.Builder(this);
+            builder.setTitle("No Internet Connection");
+            builder.setMessage("Please turn on your internet connection to continue.");
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    recreate();
+                }
+            });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+            alertDialog.setCanceledOnTouchOutside(false);
+        }
+        else{
+            allCategoryList=new ArrayList<>();
+            getAllMovieData();
+        }
+
+
+
+
 
 
     }
