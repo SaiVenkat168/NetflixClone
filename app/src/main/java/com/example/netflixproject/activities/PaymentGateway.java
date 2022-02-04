@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.netflixproject.R;
 import com.example.netflixproject.mainscreens.MainScreen;
+import com.example.netflixproject.modals.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +46,7 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -232,6 +234,11 @@ public class PaymentGateway extends AppCompatActivity implements PaymentResultLi
                     progressDialog.setMessage("Taking you to mainscreen...!");
                     progressDialog.show();
                     userId=auth.getCurrentUser().getUid();
+
+                    Users users=new Users(firstname.getText().toString(),lastname.getText().toString(),email,number.getText().toString(),PlanCost,validdate);
+                    String id=task.getResult().getUser().getUid();
+                    database.getReference().child("Users").child(id).setValue(users);
+
                     DocumentReference documentReference=firebaseFirestore.collection("Users").document(userId);
                     Map<String,Object> user=new HashMap<>();
                     user.put("Email",email);

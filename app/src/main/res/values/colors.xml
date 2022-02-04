@@ -5,6 +5,7 @@
     <color name="purple_700">#000</color>
     <color name="teal_200">#E50914</color>
     <color name="teal_700">#E50914</color>
+    <color name="coloraccent">#000</color>
     <color name="black">#FF000000</color>
     <color name="activedot">#E50914</color>
     <color name="inactivedot">#8F8E8E</color>

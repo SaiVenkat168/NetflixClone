@@ -120,12 +120,18 @@ TextView buttonsignin,siginup,forgotpasswordextview;
                                        }
                                     else
                                     {
-                                        if(task.getException() instanceof FirebaseNetworkException)
+                                        if(task.getException() instanceof FirebaseNetworkException) {
+                                            pb.setVisibility(View.GONE);
                                             Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-                                        if(task.getException() instanceof FirebaseAuthInvalidUserException)
+                                        }
+                                        if(task.getException() instanceof FirebaseAuthInvalidUserException) {
+                                            pb.setVisibility(View.GONE);
                                             Toast.makeText(getApplicationContext(), "User doesn't exist", Toast.LENGTH_SHORT).show();
-                                        if(task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                                        }
+                                        if(task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                            pb.setVisibility(View.GONE);
                                             Toast.makeText(getApplicationContext(), "Wrong email id and password", Toast.LENGTH_SHORT).show();
+                                        }
                                         else
                                         Toast.makeText(SignInActivity.this, task.getException().getMessage().toString() + "", Toast.LENGTH_SHORT).show();
                                     }

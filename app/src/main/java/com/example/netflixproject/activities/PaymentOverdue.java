@@ -16,12 +16,17 @@ import android.widget.Toast;
 
 import com.example.netflixproject.R;
 import com.example.netflixproject.mainscreens.MainScreen;
+import com.example.netflixproject.modals.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,10 +49,13 @@ public class PaymentOverdue extends AppCompatActivity implements PaymentResultLi
     String firstname,lastname;
     Date today,validdate;
     FirebaseAuth auth;
+    FirebaseDatabase database;
     DocumentReference documentReference;
     // FirebaseDatabase database;
     FirebaseFirestore firebaseFirestore;
     String fname,lname,number,mail,Userid,name;
+    String namef,namel,numb,mai;
+    Date d;
     String pay;
 
     public String getFirstname() {
@@ -81,7 +89,6 @@ public class PaymentOverdue extends AppCompatActivity implements PaymentResultLi
         today=c.getTime();
         c.add(Calendar.MONTH,1);
         validdate=c.getTime();
-
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
 
@@ -166,32 +173,48 @@ public class PaymentOverdue extends AppCompatActivity implements PaymentResultLi
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
+                try {
+                    name=getFirstname()+getLastname();
+                    JSONObject options=new JSONObject();
+                    options.put("name",(documentSnapshot.getString("Firts_name")+documentSnapshot.getString("Last_name")));
+                    options.put("description","App Payment");
+                    options.put("currency","INR");
+                    double d=Double.parseDouble(getPay());
+                    d=d*100;
+                    options.put("amount",d);
+                    options.put("prefill.email",documentSnapshot.getString("Email"));
+                    options.put("prefill.contact",documentSnapshot.getString("Contact_number"));
+                    checkout.open(activity,options);
 
-                fname=documentSnapshot.getString("Firts_name");
-                lname=documentSnapshot.getString("Last_name");
-                setFirstname(fname);
-                setLastname(lname);
-                Toast.makeText(getApplicationContext(), fname+"\n"+lname+"\n"+mail+"\n"+number, Toast.LENGTH_SHORT).show();
-                number=documentSnapshot.getString("Contact_number");
-                mail=documentSnapshot.getString("Email");
+                } catch (Exception e) {
+                    Log.e(TAG,"Error occured",e);
+                }
+
             }
         });
-        try {
-            name=getFirstname()+getLastname();
-            JSONObject options=new JSONObject();
-            //options.put("name",mail);
-            options.put("description","App Payment");
-            options.put("currency","INR");
-            double d=Double.parseDouble(getPay());
-            d=d*100;
-            options.put("amount",d);
-            options.put("prefill.email",mail);
-            options.put("prefill.contact",number);
-            checkout.open(activity,options);
 
-        } catch (Exception e) {
-            Log.e(TAG,"Error occured",e);
-        }
+//        database.getReference().child("Users").child(Userid).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot)
+//            {
+//                namef=snapshot.getValue(Users.class).getFirstname().toString();
+//                namel=snapshot.getValue(Users.class).getLastname().toString();
+//                numb=snapshot.getValue(Users.class).getMobilenumber().toString();
+//                mai=snapshot.getValue(Users.class).getEmail().toString();
+//                name=namef+namel;
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                Toast.makeText(getApplicationContext(), error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
+
+
+
 
 
     }

@@ -38,7 +38,7 @@ public class StepThree extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(StepThree.this,SignInActivity.class));
             }
         });
 

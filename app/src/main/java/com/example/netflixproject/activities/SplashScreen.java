@@ -33,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
     DocumentReference reference;
     Date today,validdate;
     String Uid;
-    boolean t=true;
+    boolean t=true,a=false,b=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,8 @@ public class SplashScreen extends AppCompatActivity {
         progressBar=findViewById(R.id.progressbar);
         progress();
         start();
+
+
     }
     public void progress()
     {
@@ -71,7 +73,6 @@ public class SplashScreen extends AppCompatActivity {
     {
         if(t)
         {
-
             if(auth.getCurrentUser()!=null)
             {
                 t=false;
@@ -83,12 +84,14 @@ public class SplashScreen extends AppCompatActivity {
                         validdate=documentSnapshot.getDate("Valid_date");
                         if(validdate.compareTo(today)>=0)
                         {
+                            a=true;
                             startActivity(new Intent(SplashScreen.this, MainScreen.class));
-                            Toast.makeText(SplashScreen.this, "Login is Successful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SplashScreen.this, "Login is Successful", Toast.LENGTH_SHORT).show();
 
                         }
                         else
                         {
+                            b=true;
                             Toast.makeText(SplashScreen.this, "Plan Expired", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SplashScreen.this,PaymentOverdue.class));
                         }

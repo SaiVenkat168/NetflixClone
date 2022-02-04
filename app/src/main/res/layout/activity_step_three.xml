@@ -13,8 +13,8 @@
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="654dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="54dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp">
