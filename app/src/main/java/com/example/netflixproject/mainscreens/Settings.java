@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.netflixproject.R;
+import com.example.netflixproject.activities.PaymentOverdue;
 import com.example.netflixproject.activities.SignInActivity;
+import com.example.netflixproject.activities.UpgradePlan;
 import com.example.netflixproject.modals.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,7 +49,7 @@ import java.util.Objects;
 public class Settings extends AppCompatActivity {
     ImageView logo;
     BottomNavigationView bottomNavigationView;
-    TextView resetbtn,signoutbtn;
+    TextView resetbtn,signoutbtn,changeplan;
     EditText resetpassword;
     TextView email,plan,date;
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
@@ -82,6 +84,7 @@ public class Settings extends AppCompatActivity {
         email=findViewById(R.id.emailsettings);
         plan=findViewById(R.id.plansettings);
         date=findViewById(R.id.datesettings);
+        changeplan=findViewById(R.id.changeplan);
 
         user= FirebaseAuth.getInstance().getCurrentUser();
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -164,95 +167,118 @@ public class Settings extends AppCompatActivity {
                 }).create();
                 signout.show();
 
-//
-//                signout.(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
-//                signout.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.black));
-//
+
+            }
+        });
+
+        changeplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder plan= new AlertDialog.Builder(v.getContext());
+                plan.setTitle("Do you really want to Change Plan ?");
+                plan.setMessage("Press YES to Change Plan");
+                plan.setCancelable(false);
+                plan.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent x=new Intent(Settings.this, UpgradePlan.class);
+                        x.putExtra("UserId",userId);
+                        startActivity(x);
+                        finish();
+                    }
+                }).create();
+                plan.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                    }
+                }).create();
+                plan.show();
 
 
             }
         });
 
 
-
         resetbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             ProgressDialog progressDialog=new ProgressDialog(Settings.this);
+                ProgressDialog progressDialog=new ProgressDialog(Settings.this);
                 progressDialog.setMessage("Loading...");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
                 if(resetpassword.getText().toString().length()>7)
                 {
                     auth.signInWithEmailAndPassword(mail,resetpassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            EditText changepassword = new EditText(view.getContext());
-                            AlertDialog.Builder updatepassword = new AlertDialog.Builder(view.getContext());
-                            updatepassword.setTitle("Update Password?");
-                            updatepassword.setCancelable(false);
-                            changepassword.setHint("New password");
-                            changepassword.setSingleLine();
-                            updatepassword.setView(changepassword);
-                            updatepassword.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    progressDialog.show();
-                                    String newpasswordstring = changepassword.getText().toString();
-                                    if (newpasswordstring.length() > 7) {
-                                        user.updatePassword(newpasswordstring).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(getApplicationContext(), "Password Updated", Toast.LENGTH_SHORT).show();
-                                                resetpassword.setText("");
-                                                progressDialog.cancel();
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                EditText changepassword = new EditText(view.getContext());
+                                AlertDialog.Builder updatepassword = new AlertDialog.Builder(view.getContext());
+                                updatepassword.setTitle("Update Password?");
+                                updatepassword.setCancelable(false);
+                                changepassword.setHint("New password");
+                                changepassword.setSingleLine();
+                                updatepassword.setView(changepassword);
+                                updatepassword.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        progressDialog.show();
+                                        String newpasswordstring = changepassword.getText().toString();
+                                        if (newpasswordstring.length() > 7) {
+                                            user.updatePassword(newpasswordstring).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(getApplicationContext(), "Password Updated", Toast.LENGTH_SHORT).show();
+                                                    resetpassword.setText("");
+                                                    progressDialog.cancel();
 
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                if (e instanceof FirebaseNetworkException)
-                                                    Toast.makeText(getApplicationContext(), "NO internet connection", Toast.LENGTH_SHORT).show();
-                                                Toast.makeText(getApplicationContext(), "Password not updated", Toast.LENGTH_SHORT).show();
-                                                progressDialog.cancel();
-                                            }
-                                        });
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    if (e instanceof FirebaseNetworkException)
+                                                        Toast.makeText(getApplicationContext(), "NO internet connection", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Password not updated", Toast.LENGTH_SHORT).show();
+                                                    progressDialog.cancel();
+                                                }
+                                            });
 
-                                    } else {
-                                        progressDialog.cancel();
-                                        Toast.makeText(getApplicationContext(), "Password to short please retry ", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            progressDialog.cancel();
+                                            Toast.makeText(getApplicationContext(), "Password to short please retry ", Toast.LENGTH_SHORT).show();
+
+                                        }
+
 
                                     }
+                                });
+                                updatepassword.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        resetpassword.setText("");
+                                        progressDialog.cancel();
+                                    }
+                                });
+                                updatepassword.create().show();
+                            }
 
-
-                                }
-                            });
-                            updatepassword.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    resetpassword.setText("");
-                                    progressDialog.cancel();
-                                }
-                            });
-                            updatepassword.create().show();
                         }
 
-                    }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            if(e instanceof FirebaseNetworkException)
+                                Toast.makeText(getApplicationContext(),"NO internet connection",Toast.LENGTH_SHORT).show();
+                            if(e instanceof FirebaseAuthInvalidCredentialsException)
+                                resetpassword.setError("Incorrect password");
+                            else
+                                resetpassword.setError("Incorrect password");
+                            progressDialog.cancel();
 
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if(e instanceof FirebaseNetworkException)
-                            Toast.makeText(getApplicationContext(),"NO internet connection",Toast.LENGTH_SHORT).show();
-                        if(e instanceof FirebaseAuthInvalidCredentialsException)
-                            resetpassword.setError("Incorrect password");
-                        else
-                            resetpassword.setError("Incorrect password");
-                        progressDialog.cancel();
-
-                    }
-                });
+                        }
+                    });
 
                 }
                 else
